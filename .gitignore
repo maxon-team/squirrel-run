@@ -1,0 +1,5 @@
+frameworks/
+runtime/
+.project
+.settings/
+.cocos-project.json
