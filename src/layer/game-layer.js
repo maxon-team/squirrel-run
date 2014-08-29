@@ -1,20 +1,21 @@
 var GameLayer = cc.Layer.extend({
 	
+	// the physics space.
+	space: null,
+	
+	// the hero sprite.
 	sprite : null,
 	
-	ctor : function() {
+	// runner speed.
+	runnerSpeed: 10,
+	
+	ctor : function(space) {
 		this._super();
-		this.init();
+		this.space = space;
+		this.initSprite();
 	},
 
-	init : function() {
-		this._super();
-		this.run();
-		this.createPlatform(100, 120, 2);
-		this.createPlatform(200, 300, 1);
-	},
-
-	run : function() {
+	initSprite : function() {
 		var winSize = cc.director.getWinSize();//get windows size
 		var centerPos = cc.p(winSize.width/2, winSize.height/2);
 		cc.spriteFrameCache.addSpriteFrames(res.squirrel.plist);
@@ -25,12 +26,28 @@ var GameLayer = cc.Layer.extend({
 			animFrames.push(frame);
 		}
 		var animation = new cc.Animation(animFrames, 0.15);
-		this.runningAction = cc.RepeatForever.create(cc.Animate.create(animation));
+		this.runningAction = cc.RepeatForever.create(new cc.Animate(animation));
 
-		this.sprite = new cc.Sprite("#run_01.png");
-		this.sprite.setPosition(cc.p(centerPos));
+		this.sprite = new cc.PhysicsSprite("#run_01.png");
+		
+		var contentSize = this.sprite.getContentSize();
+		
+		var body = new cp.Body(1, cp.momentForBox(1, contentSize.width, contentSize.height));
+		body.p = cc.p(80, res.physics.groundHeight + contentSize.height / 2);
+		body.applyImpulse(cp.v(this.runnerSpeed, 0), cp.v(0, 0));
+		this.space.addBody(body);
+		
+		var shape = new cp.BoxShape(body, contentSize.width - 14, contentSize.height);
+		this.space.addShape(shape);
+		
+		this.sprite.setBody(body);
+
 		this.sprite.runAction(this.runningAction);
 		this.addChild(this.sprite);
+	},
+	
+	getEyeX: function () {
+		return this.sprite.getPositionX() - this.runnerSpeed;
 	},
 
 	createPlatform : function(boardX, boardY, length) {
