@@ -11,11 +11,10 @@
   ],
   "jsList": [
     "src/resource.js",
-    "src/app.js",
-    "src/app-menu-layer.js",
-    "src/app-menu-scene.js",
-    "src/game-layer.js",
-    "src/game-background-layer.js",
-    "src/game-scene.js"
+    "src/layer/app-menu-layer.js",
+    "src/scene/app-menu-scene.js",
+    "src/layer/game-layer.js",
+    "src/layer/game-background-layer.js",
+    "src/scene/game-scene.js"
   ]
 }
