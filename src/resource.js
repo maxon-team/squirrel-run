@@ -18,6 +18,11 @@ var res = {
 		png: 'res/squirrel-running.png'
 	},
 	
+	panda : {
+		plist: 'res/panda.plist',
+		png: 'res/panda.png'
+	},
+	
 	// Platform Related.
 	platform: {
 		left: 'res/platform_l.png',

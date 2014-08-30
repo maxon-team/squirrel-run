@@ -20,6 +20,13 @@ var GameLayer = cc.Layer.extend({
 		var player = this.player = new Player();
 		this.addRole(player);
 		
+		//create platform
+		var platform = new Platform(400,100,0);
+		this.addRole(platform);
+		
+		var platform = new Platform(200,200,1);
+		this.addRole(platform);
+		
 		// Event handling.
 		cc.eventManager.addListener({
 			event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -29,21 +36,28 @@ var GameLayer = cc.Layer.extend({
 			onTouchEnded: this.onTouchEnded
 		}, this);
 		this.recognizer = new SimpleTouchRecognizer();
-		
 		this.scheduleUpdate();
+		
+		//physic Debug
+		this._debugNode = cc.PhysicsDebugNode.create(this.space);
+		this._debugNode.setVisible(true);
+		this.addChild(this._debugNode);
+		
 	},
 	
 	update: function (dt) {
-		player.update(dt);
+		this.player.update(dt);
 	},
 	
 	addRole: function (role) {
 		role.addToLayer(this.space, this);
 	},
 	
+	//Tap to jump
 	onTouchBegan: function (touch, event) {
-		var pos = touch.getLocation();
-		event.getCurrentTarget().recognizer.beginPoint(pos.x, pos.y);
+		//var pos = touch.getLocation();
+		//event.getCurrentTarget().recognizer.beginPoint(pos.x, pos.y);
+		event.getCurrentTarget().player.jump();
 		return true;
 	},
 
@@ -56,7 +70,7 @@ var GameLayer = cc.Layer.extend({
 		var rtn = event.getCurrentTarget().recognizer.endPoint();
 		switch (rtn) {
 		case "up":
-			player.jump();
+			event.getCurrentTarget().player.jump();
 			break;
 		default:
 			break;
@@ -65,37 +79,5 @@ var GameLayer = cc.Layer.extend({
 
 	getEyeX: function () {
 		return this.player.sprite.getPositionX() - this.runnerSpeed;
-	},
-
-	createPlatform : function(boardX, boardY, length) {
-		var platform_l = cc.Sprite.create(res.platform.left);
-		platform_l.setPosition(cc.p(boardX, boardY));
-		platform_l.attr({
-			anchorX:0,
-			anchorY:0
-		});
-		this.addChild(platform_l);
-
-		//loop to add length
-		var platform_m = [];
-		for(var i=0; i<length; i++) {
-			platform_m[i] = new cc.Sprite(res.platform.middle);
-			platform_m[i].attr({
-				anchorX: 0,
-				anchorY: 0
-			});
-			platform_m[i].setPosition(cc.p(platform_l.getPositionX()+platform_l.width + platform_m[i].width*i,boardY));
-			this.addChild(platform_m[i]);
-		}
-
-
-		var platform_r = new cc.Sprite(res.platform.right);
-		platform_r.attr({
-			anchorX : 0,
-			anchorY : 0
-		});
-		platform_r.setPosition(cc.p(platform_m[length-1].getPositionX()+platform_m[0].width,boardY));
-		this.addChild(platform_r);
 	}
-
 });

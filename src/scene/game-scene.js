@@ -19,6 +19,7 @@ var GameScene = cc.Scene.extend({
 				// thickness of wall
 				0);
 		this.space.addStaticShape(wallBottom);
+
 	},
 
 	// called by schedule update.
@@ -27,6 +28,7 @@ var GameScene = cc.Scene.extend({
 
 		var eyeX = this.gameLayer.getEyeX();
 		this.controlLayer.setPosition(cc.p(-eyeX, 0));
+
 	},
 
 	onEnter: function() {

@@ -17,6 +17,9 @@ var Player = cc.Class.extend({
 	// the status.
 	status: null,
 	
+	// player speed.
+	runningSpeed: 35,
+	
 	/**
 	 * Construct a new player.
 	 */
@@ -24,37 +27,35 @@ var Player = cc.Class.extend({
 		var winSize = cc.director.getWinSize();
 		var centerPos = cc.p(winSize.width / 2, winSize.height / 2);
 
-		cc.spriteFrameCache.addSpriteFrames(res.squirrel.plist);
-		this.spriteSheet = new cc.SpriteBatchNode(res.squirrel.png);
+		cc.spriteFrameCache.addSpriteFrames(res.panda.plist);
+		this.spriteSheet = new cc.SpriteBatchNode(res.panda.png);
 
 		this.runningAction = new cc.RepeatForever(new cc.Animate(
-				new cc.Animation([1, 2, 3, 4].map(function (i) {
-					return cc.spriteFrameCache.getSpriteFrame("run_0" + i + ".png");
+				new cc.Animation([1, 2, 3, 4, 5, 6, 7, 8].map(function (i) {
+					return cc.spriteFrameCache.getSpriteFrame("panda_run_0" + i + ".png");
 				}), 0.15)
 		));
 		
-		// FIXME: replace with the jump up animation.
 		this.jumpUpAcion = new cc.RepeatForever(new cc.Animate(
-				new cc.Animation([1, 2, 3, 4].map(function (i) {
-					return cc.spriteFrameCache.getSpriteFrame("run_0" + i + ".png");
+				new cc.Animation([1, 2, 3, 4, 5, 6, 7, 8].map(function (i) {
+					return cc.spriteFrameCache.getSpriteFrame("panda_jump_0" + i + ".png");
 				}), 0.15)
-		));
-		
-		// FIXME: replace with the jum down animation.
+		));	
+
 		this.jumpDownAction = new cc.RepeatForever(new cc.Animate(
-				new cc.Animation([1, 2, 3, 4].map(function (i) {
-					return cc.spriteFrameCache.getSpriteFrame("run_0" + i + ".png");
+				new cc.Animation([1, 2, 3, 4, 5, 6, 7, 8].map(function (i) {
+					return cc.spriteFrameCache.getSpriteFrame("panda_roll_0" + i + ".png");
 				}), 0.15)
 		));
 
-		this.sprite = new cc.PhysicsSprite("#run_01.png");
+		this.sprite = new cc.PhysicsSprite("#panda_run_01.png");
 		this.spriteSheet.addChild(this.sprite);
 
 		var contentSize = this.sprite.getContentSize();
 
 		var body = new cp.Body(1, cp.momentForBox(1, contentSize.width, contentSize.height));
-		body.p = cc.p(80, res.physics.groundHeight + contentSize.height / 2);
-		body.applyImpulse(cp.v(this.runnerSpeed, 0), cp.v(0, 0));
+		body.p = cc.p(120, 200);
+		body.applyImpulse(cp.v(this.runningSpeed, 0), cp.v(0, 0));
 		this.body = body;
 		this.sprite.setBody(body);
 
@@ -62,6 +63,8 @@ var Player = cc.Class.extend({
 		this.shape = shape;
 
 		this.sprite.runAction(this.runningAction);
+		this.status = "running";
+		
 	},
 	
 	/**
@@ -77,6 +80,7 @@ var Player = cc.Class.extend({
 		this.space = space;
 		space.addBody(this.body);
 		space.addShape(this.shape);
+
 	},
 	
 	/**
@@ -96,20 +100,20 @@ var Player = cc.Class.extend({
 	 */
 	update: function (dt) {
 		var vel = this.body.getVel();
-		if (this.stat == 'jump up') {
+		if (this.status == 'jumpUp') {
 			if (vel.y < 0.1) {
-				this.stat = 'jump down';
+				this.status = 'jumpDown';
 				this.sprite.stopAllActions();
 				this.sprite.runAction(this.jumpDownAction);
 			}
-		} else if (this.stat == 'jump down') {
+		} else if (this.status == 'jumpDown') {
 			if (vel.y == 0) {
-				this.stat = 'running';
+				this.status = 'running';
 				this.sprite.stopAllActions();
 				this.sprite.runAction(this.runningAction);
 			}
 		}
-	},
+	}, 
 	
 	/**
 	 * Trigger a jump action.
@@ -119,8 +123,9 @@ var Player = cc.Class.extend({
 			this.body.applyImpulse(cp.v(0, 250), cp.v(0, 0));
 			this.status = 'jumpUp';
 			this.sprite.stopAllActions();
-			this.sprite.runAction(this.jumpUpAction);
+			this.sprite.runAction(this.jumpUpAcion);
 		}
 		cc.log('Test Jump');
+		cc.log(this.jumpUpAcion)
 	}
 }) 
