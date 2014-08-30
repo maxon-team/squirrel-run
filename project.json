@@ -17,6 +17,7 @@
     "src/layer/game-layer.js",
     "src/layer/game-background-layer.js",
     "src/scene/game-scene.js",
-    "src/util/simple-touch-recognizer.js"
+    "src/util/simple-touch-recognizer.js",
+    "src/role/player.js"
   ]
 }
