@@ -35,18 +35,21 @@ var Player = cc.Class.extend({
 					return cc.spriteFrameCache.getSpriteFrame("panda_run_0" + i + ".png");
 				}), 0.15)
 		));
+		this.runningAction.retain();
 		
-		this.jumpUpAcion = new cc.RepeatForever(new cc.Animate(
+		this.jumpUpAction = new cc.RepeatForever(new cc.Animate(
 				new cc.Animation([1, 2, 3, 4, 5, 6, 7, 8].map(function (i) {
 					return cc.spriteFrameCache.getSpriteFrame("panda_jump_0" + i + ".png");
 				}), 0.15)
 		));	
+		this.jumpUpAction.retain();
 
 		this.jumpDownAction = new cc.RepeatForever(new cc.Animate(
 				new cc.Animation([1, 2, 3, 4, 5, 6, 7, 8].map(function (i) {
 					return cc.spriteFrameCache.getSpriteFrame("panda_roll_0" + i + ".png");
 				}), 0.15)
 		));
+		this.jumpDownAction.retain();
 
 		this.sprite = new cc.PhysicsSprite("#panda_run_01.png");
 		this.spriteSheet.addChild(this.sprite);
@@ -62,7 +65,7 @@ var Player = cc.Class.extend({
 		var shape = new cp.BoxShape(body, contentSize.width - 14, contentSize.height);
 		this.shape = shape;
 
-		this.sprite.runAction(this.runningAction);
+		this.sprite.runAction(this.jumpDownAction);
 		this.status = "running";
 		
 	},
@@ -110,6 +113,7 @@ var Player = cc.Class.extend({
 			if (vel.y == 0) {
 				this.status = 'running';
 				this.sprite.stopAllActions();
+				cc.log(this instanceof Player);
 				this.sprite.runAction(this.runningAction);
 			}
 		}
