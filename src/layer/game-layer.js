@@ -9,8 +9,8 @@ var GameLayer = cc.Layer.extend({
 	// the recognizer.
 	recognizer: null,
 
-	// runner speed.
-	runnerSpeed: 35,
+	// virtual Pos of player on the scene.
+	PlayerPosOfScene: 300,
 
 	ctor: function(space) {
 		this._super();
@@ -24,11 +24,21 @@ var GameLayer = cc.Layer.extend({
 		this.addRole(player);
 		
 		//create platform
-		var platform = new Platform(700,50,0);
+		var platform = new Platform(150,100,3);
+		this.addRole(platform);
+		var platform = new Platform(1300,200,1);
 		this.addRole(platform);
 		
-		var platform = new Platform(800,100,1);
+		var platform = new Platform(1900,300,1);
 		this.addRole(platform);
+		
+		var platform = new Platform(2500,100,1);
+		this.addRole(platform);
+		
+		//platform.removeFromLayer();
+		
+		//var platform = new Platform(920,100,2);
+		//this.addRole(platform);
 		
 		// Event handling.
 		cc.eventManager.addListener({
@@ -44,7 +54,7 @@ var GameLayer = cc.Layer.extend({
 		//physic Debug
 		this._debugNode = cc.PhysicsDebugNode.create(this.space);
 		this._debugNode.setVisible(true);
-		this.addChild(this._debugNode);
+		//this.addChild(this._debugNode);
 		
 	},
 	
@@ -81,6 +91,6 @@ var GameLayer = cc.Layer.extend({
 	},
 
 	getEyeX: function () {
-		return this.player.sprite.getPositionX() - this.runnerSpeed;
+		return this.player.sprite.getPositionX()-this.PlayerPosOfScene;
 	}
 });

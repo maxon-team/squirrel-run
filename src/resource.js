@@ -27,7 +27,9 @@ var res = {
 	platform: {
 		left: 'res/platform_l.png',
 		middle: 'res/platform_m.png',
-		right: 'res/platform_r.png'
+		right: 'res/platform_r.png',
+		plist: 'res/platform.plist',
+		png: 'res/platform.png'
 	},
 	
 	// Background

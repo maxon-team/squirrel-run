@@ -7,7 +7,7 @@
             <key>platform_l.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,79},{102,75}}</string>
+                <string>{{4,85},{102,75}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>platform_m.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,156},{290,75}}</string>
+                <string>{{4,166},{290,75}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>platform_r.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{102,75}}</string>
+                <string>{{4,4},{102,75}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -53,7 +53,7 @@
             <key>size</key>
             <string>{128,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:c932b05737cbbc5816fb97014fe11b44:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:09953594a83631b68d8b9f19a3c8fc75:1/1$</string>
             <key>textureFileName</key>
             <string>platform.png</string>
         </dict>
