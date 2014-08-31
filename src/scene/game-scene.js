@@ -8,7 +8,7 @@ var GameScene = cc.Scene.extend({
 	
 	initSpace: function () {
 		this.space = new cp.Space();
-		this.space.gravity = cp.v(0, -350);
+		this.space.gravity = cp.v(0, -300);
 
 		var wallBottom = new cp.SegmentShape(
 				this.space.staticBody,

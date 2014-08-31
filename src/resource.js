@@ -41,7 +41,7 @@ var res = {
     CloseSelected_png : "res/CloseSelected.png",
     
     physics: {
-    	groundHeight: 57
+    	groundHeight: 40
     }
 };
 

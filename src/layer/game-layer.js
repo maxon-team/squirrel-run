@@ -16,15 +16,18 @@ var GameLayer = cc.Layer.extend({
 		this._super();
 		this.space = space;
 		
+		var winSize = cc.director.getWinSize();
+		var centerPos = cc.p(winSize.width / 2, winSize.height / 2);
+		
 		// Role init.
-		var player = this.player = new Player();
+		var player = this.player = new Player(centerPos.x, centerPos.y);
 		this.addRole(player);
 		
 		//create platform
-		var platform = new Platform(400,100,0);
+		var platform = new Platform(700,50,0);
 		this.addRole(platform);
 		
-		var platform = new Platform(200,200,1);
+		var platform = new Platform(800,100,1);
 		this.addRole(platform);
 		
 		// Event handling.

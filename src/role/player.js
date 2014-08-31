@@ -15,18 +15,15 @@ var Player = cc.Class.extend({
 	jumpDownAction: null,
 	
 	// the status.
-	status: null,
+	status: 'running',
 	
 	// player speed.
-	runningSpeed: 35,
+	runningSpeed: 5000,
 	
 	/**
 	 * Construct a new player.
 	 */
-	ctor: function () {
-		var winSize = cc.director.getWinSize();
-		var centerPos = cc.p(winSize.width / 2, winSize.height / 2);
-
+	ctor: function (x, y) {
 		cc.spriteFrameCache.addSpriteFrames(res.panda.plist);
 		this.spriteSheet = new cc.SpriteBatchNode(res.panda.png);
 
@@ -56,8 +53,8 @@ var Player = cc.Class.extend({
 
 		var contentSize = this.sprite.getContentSize();
 
-		var body = new cp.Body(1, cp.momentForBox(1, contentSize.width, contentSize.height));
-		body.p = cc.p(120, 200);
+		var body = new cp.Body(100, cp.momentForBox(Number.POSITIVE_INFINITY, contentSize.width, contentSize.height));
+		body.setPos(cc.p(x, y));
 		body.applyImpulse(cp.v(this.runningSpeed, 0), cp.v(0, 0));
 		this.body = body;
 		this.sprite.setBody(body);
@@ -65,9 +62,8 @@ var Player = cc.Class.extend({
 		var shape = new cp.BoxShape(body, contentSize.width - 14, contentSize.height);
 		this.shape = shape;
 
-		this.sprite.runAction(this.jumpDownAction);
+		this.sprite.runAction(this.runningAction);
 		this.status = "running";
-		
 	},
 	
 	/**
@@ -113,7 +109,6 @@ var Player = cc.Class.extend({
 			if (vel.y == 0) {
 				this.status = 'running';
 				this.sprite.stopAllActions();
-				cc.log(this instanceof Player);
 				this.sprite.runAction(this.runningAction);
 			}
 		}
@@ -124,12 +119,10 @@ var Player = cc.Class.extend({
 	 */
 	jump: function () {
 		if (this.status == 'running') {
-			this.body.applyImpulse(cp.v(0, 250), cp.v(0, 0));
+			this.body.applyImpulse(cp.v(0, 25000), cp.v(0, 0));
 			this.status = 'jumpUp';
 			this.sprite.stopAllActions();
-			this.sprite.runAction(this.jumpUpAcion);
+			this.sprite.runAction(this.jumpUpAction);
 		}
-		cc.log('Test Jump');
-		cc.log(this.jumpUpAcion)
 	}
 }) 

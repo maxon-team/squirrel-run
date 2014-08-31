@@ -25,32 +25,32 @@ var Platform = cc.Class.extend({
 	 * Construct a new player.
 	 */
 	ctor: function (boardX, boardY, length) {
-		
 		this.length = length;
 
+		this.spriteSheet = new cc.SpriteBatchNode(res.platform.left);
+		
 		//create platform
 		this.platform_l = new cc.PhysicsSprite(res.platform.left);
-		
-		//init physic
-		/*var body = new cp.StaticBody();
-		body.p = cc.p(boardX, boardY);
-		this.body = body;
-		this.body.applyImpulse(cp.v(35, 0), cp.v(0, 0));
-		this.platform_l.setBody(body);
-
-		this.shape = new cp.BoxShape(body,
-				this.platform_l.getContentSize().width,
-				this.platform_l.getContentSize().height);
-				
-				*/
+		this.spriteSheet.addChild(this.platform_l);
 		
 		var contentSize = this.platform_l.getContentSize();
-		this.body = new cp.Body(1, cp.momentForBox(1, contentSize.width, contentSize.height));
-		this.body.p = cc.p(boardX, boardY);
-		
-		this.shape = new cp.BoxShape(this.body, contentSize.width - 14, contentSize.height);
 
-		this.platform_l.setBody(this.body);
+		var body = new cp.StaticBody();
+		body.setPos(cc.p(boardX, boardY));
+		this.platform_l.setBody(body);
+		this.body = body;
+		
+		var winSize = cc.director.getWinSize();
+//		var shape = new cp.SegmentShape(
+//				body,
+//				// Start point
+//				cc.p(0, 0),
+//				// MAX INT:4294967295
+//				cc.p(length * contentSize.width, 0),
+//				// thickness of wall
+//				contentSize.height / 2);
+		var shape = new cp.BoxShape(body, contentSize.width, contentSize.height);
+		this.shape = shape;
 	},
 
 	/**
@@ -62,11 +62,10 @@ var Platform = cc.Class.extend({
 		/*for(var i=0; i<this.length+2; i++) {
 			layer.addChild(this.platform[i]);
 		}*/
-		layer.addChild(this.platform_l);
+		layer.addChild(this.spriteSheet);
+		
 		this.space = space;
-		this.space.addBody(this.body);
-		//this.space.addStaticShape(this.shape);
-		space.addShape(this.shape);
+		this.space.addStaticShape(this.shape);
 	},
 
 	/**
@@ -74,8 +73,5 @@ var Platform = cc.Class.extend({
 	 */
 	removeFromLayer: function () {
 		// TODO: do some cleanups.
-		this.runningAction.release();
-		this.jumpUpAction.release();
-		this.jumpDownAction.release();
 	}
 }) 
