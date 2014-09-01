@@ -15,7 +15,10 @@ var GameLayer = cc.Layer.extend({
 	recognizer: null,
 
 	// virtual Pos of player on the scene.
-	PlayerPosOfScene: 300,
+	playerPosOfScene: {
+		x: 300,
+		y: 200
+	},
 
 	ctor: function(space) {
 		this._super();
@@ -119,6 +122,10 @@ var GameLayer = cc.Layer.extend({
 	},
 
 	getEyeX: function () {
-		return this.player.sprite.getPositionX()-this.PlayerPosOfScene;
+		return this.player.sprite.getPositionX() - this.playerPosOfScene.x;
+	},
+	
+	getEyeY: function () {
+		return this.player.sprite.getPositionY() - this.playerPosOfScene.y;
 	}
 });

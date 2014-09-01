@@ -26,9 +26,8 @@ var GameScene = cc.Scene.extend({
 	update: function (dt) {
 		this.space.step(dt);
 
-		var eyeX = this.gameLayer.getEyeX();
-		this.controlLayer.setPosition(cc.p(-eyeX, 0));
-
+		this.controlLayer.setPosition(
+				cc.p(-this.gameLayer.getEyeX(), -this.gameLayer.getEyeY()));
 	},
 
 	onEnter: function() {
