@@ -38,12 +38,18 @@ var res = {
 		      'res/near-bg.png'
 	          ],
 	          
+	//Sound Effect
+	sound:{
+		bg_mp3: 'res/sound/bg.mp3',
+		jump_mp3: 'res/sound/jump.mp3'
+	},
+	          
     HelloWorld_png : "res/HelloWorld.png",
     CloseNormal_png : "res/CloseNormal.png",
     CloseSelected_png : "res/CloseSelected.png",
     
     physics: {
-    	groundHeight: 40
+    	groundHeight: -100
     }
 };
 

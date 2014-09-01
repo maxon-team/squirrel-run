@@ -22,6 +22,8 @@ var Platform = cc.Class.extend({
 	platform_m: null,
 	platform_r: null,
 	length : 0,
+	leftWidth: 0,
+	midWidth: 0,
 
 	/**
 	 * Construct a new player.
@@ -30,6 +32,7 @@ var Platform = cc.Class.extend({
 		this.length = length;
 		var leftWidth = 102;
 		var midWidth = 290;
+		this.leftWidth = leftWidth;
 		
 		boardX += leftWidth/2;  //let x goes right
 
@@ -49,7 +52,7 @@ var Platform = cc.Class.extend({
 		body_l.setPos(cc.p(boardX, boardY));
 		this.platform_l.setBody(body_l);
 		
-		var offsetY = 0.2;
+		var offsetY = 3;
 		if(length != 0) {
 			var body = [];
 			this.platform_m = [];
@@ -61,24 +64,26 @@ var Platform = cc.Class.extend({
 				body[i] = new cp.StaticBody();
 				body[i].setPos(cc.p(
 						leftWidth/2+midWidth/2+this.platform_l.getPositionX()+midWidth*i
-						,boardY-offsetY));
+						,boardY));
 				this.platform_m[i].setBody(body[i]);
-				shape[i] = new cp.BoxShape(body[i], this.platform_m[i].width, cSize_l.height );
-				offsetY+=0.2
+				shape[i] = new cp.BoxShape(body[i], this.platform_m[i].width, cSize_l.height-offsetY);
+				offsetY+=3;
 			}
 			this.shape = shape;
 
 			var body_r = new cp.StaticBody();
-			body_r.setPos(cc.p(this.platform_m[length-1].getPositionX()+midWidth/2+leftWidth/2, boardY-offsetY));
+			body_r.setPos(cc.p(this.platform_m[length-1].getPositionX()+midWidth/2+leftWidth/2, boardY));
 			this.platform_r.setBody(body_r);//
+			this.body_r = body_r;
 		}else{  //no middle platform
 			var body_r = new cp.StaticBody();
-			body_r.setPos(cc.p(leftWidth+this.platform_l.getPositionX(), boardY-offsetY));
+			body_r.setPos(cc.p(leftWidth+this.platform_l.getPositionX(), boardY));
 			this.platform_r.setBody(body_r);//
+			this.body_r = body_r;
 		}
 		
 		this.shape_l = new cp.BoxShape(body_l, cSize_l.width, cSize_l.height );
-		this.shape_r = new cp.BoxShape(body_r, cSize_l.width, cSize_l.height );
+		this.shape_r = new cp.BoxShape(body_r, cSize_l.width, cSize_l.height-offsetY);
 		
 //		var shape = new cp.SegmentShape(
 //				body,
@@ -130,5 +135,9 @@ var Platform = cc.Class.extend({
 			this.platform_m[i].removeFromParent();
 			this.platform_m[i] = null;
 		}	
+	},
+	
+	getLastX : function() {
+		return this.platform_r.getPositionX()+this.leftWidth/2;
 	}
 }) 

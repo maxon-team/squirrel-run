@@ -8,7 +8,7 @@ var GameScene = cc.Scene.extend({
 	
 	initSpace: function () {
 		this.space = new cp.Space();
-		this.space.gravity = cp.v(0, -300);
+		this.space.gravity = cp.v(0, -500);
 
 		var wallBottom = new cp.SegmentShape(
 				this.space.staticBody,
@@ -42,6 +42,9 @@ var GameScene = cc.Scene.extend({
 		this.addChild(new GameBackgroundLayer(), 0);
 		this.addChild(this.controlLayer, 0);
 
+		//add background music
+		cc.audioEngine.playMusic(res.sound.bg_mp3, true);
+		
 		this.scheduleUpdate();
 	}
 

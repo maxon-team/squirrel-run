@@ -18,7 +18,7 @@ var Player = cc.Class.extend({
 	status: 'running',
 	
 	// player speed.
-	runningSpeed: 10000,
+	runningSpeed: 2800,
 	
 	/**
 	 * Construct a new player.
@@ -30,21 +30,21 @@ var Player = cc.Class.extend({
 		this.runningAction = new cc.RepeatForever(new cc.Animate(
 				new cc.Animation([1, 2, 3, 4, 5, 6, 7, 8].map(function (i) {
 					return cc.spriteFrameCache.getSpriteFrame("panda_run_0" + i + ".png");
-				}), 0.08)
+				}), 0.06)
 		));
 		this.runningAction.retain();
 		
 		this.jumpUpAction = new cc.RepeatForever(new cc.Animate(
 				new cc.Animation([1, 2, 3, 4, 5, 6, 7, 8].map(function (i) {
 					return cc.spriteFrameCache.getSpriteFrame("panda_jump_0" + i + ".png");
-				}), 0.15)
+				}), 0.08)
 		));	
 		this.jumpUpAction.retain();
 
 		this.jumpDownAction = new cc.RepeatForever(new cc.Animate(
 				new cc.Animation([1, 2, 3, 4, 5, 6, 7, 8].map(function (i) {
 					return cc.spriteFrameCache.getSpriteFrame("panda_roll_0" + i + ".png");
-				}), 0.15)
+				}), 0.08)
 		));
 		this.jumpDownAction.retain();
 
@@ -53,7 +53,7 @@ var Player = cc.Class.extend({
 
 		var contentSize = this.sprite.getContentSize();
 
-		var body = new cp.Body(90, cp.momentForBox(Number.POSITIVE_INFINITY, contentSize.width, contentSize.height));
+		var body = new cp.Body(10, cp.momentForBox(Number.POSITIVE_INFINITY, contentSize.width, contentSize.height));
 		body.setPos(cc.p(x, y));
 		body.applyImpulse(cp.v(this.runningSpeed, 0), cp.v(0, 0));
 		this.body = body;
@@ -103,7 +103,7 @@ var Player = cc.Class.extend({
 			if (vel.y < 0.1) {
 				this.status = 'jumpDown';
 				this.sprite.stopAllActions();
-				this.sprite.runAction(this.jumpDownAction);
+				//this.sprite.runAction(this.jumpDownAction);
 			}
 		} else if (this.status == 'jumpDown') {
 			if (vel.y == 0) {
@@ -119,7 +119,10 @@ var Player = cc.Class.extend({
 	 */
 	jump: function () {
 		if (this.status == 'running') {
-			this.body.applyImpulse(cp.v(0, 25000), cp.v(0, 0));
+			//Jump music
+			cc.audioEngine.playEffect(res.sound.jump_mp3);
+			
+			this.body.applyImpulse(cp.v(0, 4000), cp.v(0, 0));
 			this.status = 'jumpUp';
 			this.sprite.stopAllActions();
 			this.sprite.runAction(this.jumpUpAction);
