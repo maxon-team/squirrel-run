@@ -1,13 +1,23 @@
 var GameBackgroundLayer = cc.Layer.extend({
-
-	farBg: null,
+	
 	nearBg: null,
+	nearBgWidth: null,
+	nearBgIndex: 0,
 
-	ctor: function () {
+	ctor: function (res) {
 		this._super();
 
-		this.farBg = this._tileBg(this._createFarBg.bind(this));
-		this.nearBg = this._tileBg(this._createNearBg.bind(this));
+		this.nearBg = this._tileBg(this._createBg(res).bind(this));
+	},
+	
+	refresh: function (eyeX, eyeY) {
+		var newNearBgIndex = parseInt(eyeX / this.nearBg[0].width);
+		if (this.nearBgIndex == newNearBgIndex) {
+			return false;
+		}
+		this.nearBg[(newNearBgIndex + this.nearBg.length - 1) % this.nearBg.length].setPositionX(this.nearBg[0].width * (newNearBgIndex + this.nearBg.length - 1));
+		this.nearBgIndex = newNearBgIndex;
+		return true;
 	},
 	
 	_tileBg: function (createMethod) {
@@ -23,35 +33,17 @@ var GameBackgroundLayer = cc.Layer.extend({
 		} while (remainWidth > 0);
 		return tiles;
 	},
-
-	_createFarBg: function (pos) {
-		pos = pos || cc.p(0, 0);
-		var farBg = new cc.Sprite(res.background[0]);
-		farBg.setPosition(pos || cc.p(0, 0));
-		farBg.attr({
-			anchorX: 0,
-			anchorY: 0
-		});
-		farBg.runAction(cc.repeatForever(cc.sequence(
-				cc.moveBy(20, cc.p(-farBg.width, 0)),
-				cc.moveBy(0, cc.p(farBg.width, 0))
-		)));
-		return farBg;
-	},
 	
-	_createNearBg: function (pos) {
-		pos = pos || cc.p(0, 0);
-		var nearBg = new cc.Sprite(res.background[1]);
-		nearBg.setPosition(pos);
-		nearBg.attr({
-			anchorX : 0,
-			anchorY : 0
-		});
-		nearBg.runAction(cc.repeatForever(cc.sequence(
-				cc.moveBy(2, cc.p(-nearBg.width, 0)),
-				cc.moveBy(0, cc.p(nearBg.width, 0))
-		)));
-//		nearBg.setScale(0.5);
-		return nearBg;
+	_createBg: function (res) {
+		return function (pos) {
+			pos = pos || cc.p(0, 0);
+			var bg = new cc.Sprite(res);
+			bg.setPosition(pos || cc.p(0, 0));
+			bg.attr({
+				anchorX: 0,
+				anchorY: 0
+			});
+			return bg;
+		};
 	}
 });

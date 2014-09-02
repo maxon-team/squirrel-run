@@ -26,8 +26,14 @@ var GameScene = cc.Scene.extend({
 	update: function (dt) {
 		this.space.step(dt);
 
+		var eyeX = this.gameLayer.getEyeX(), eyeY = this.gameLayer.getEyeY(); 
 		this.controlLayer.setPosition(
-				cc.p(-this.gameLayer.getEyeX(), -this.gameLayer.getEyeY()));
+				cc.p(-eyeX, -eyeY));
+		
+		this.nearBgLayer.refresh(eyeX, eyeY);
+		
+		this.farBgLayer.refresh(eyeX / 2, eyeY);
+		this.farBgLayer.setPosition(cc.p(-eyeX/2, -eyeY))
 	},
 
 	onEnter: function() {
@@ -36,14 +42,15 @@ var GameScene = cc.Scene.extend({
 		this.initSpace();
 
 		this.controlLayer = new cc.Layer();
-		this.controlLayer.addChild(this.gameLayer = new GameLayer(this.space), 0);
+		this.controlLayer.addChild(this.nearBgLayer = new GameBackgroundLayer(res.background[1]), 0);
+		this.controlLayer.addChild(this.gameLayer = new GameLayer(this.space), 1);
 
-		this.addChild(new GameBackgroundLayer(), 0);
+		this.addChild(this.farBgLayer = new GameBackgroundLayer(res.background[0]))
 		this.addChild(this.controlLayer, 0);
 
 		//add background music
 		cc.audioEngine.playMusic(res.sound.bg_mp3, true);
-		
+
 		this.scheduleUpdate();
 	}
 
