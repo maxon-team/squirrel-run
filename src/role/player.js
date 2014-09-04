@@ -19,6 +19,8 @@ var Player = cc.Class.extend({
 	
 	// player speed.
 	runningSpeed: 2500,
+	isJump: false,  //control jump particle
+	stars: null,
 	
 	/**
 	 * Construct a new player.
@@ -64,6 +66,7 @@ var Player = cc.Class.extend({
 
 		this.sprite.runAction(this.runningAction);
 		this.status = "running";
+		
 	},
 	
 	/**
@@ -79,6 +82,11 @@ var Player = cc.Class.extend({
 		this.space = space;
 		space.addBody(this.body);
 		space.addShape(this.shape);
+		
+		//jump effect init
+		this.stars = cc.ParticleSystem(res.particle.stars);
+		this.stars.setPosition(100, 100);
+		this.layer.addChild(this.stars,3);
 
 	},
 	
@@ -98,6 +106,10 @@ var Player = cc.Class.extend({
 	 * @param dt delta time.
 	 */
 	update: function (dt) {
+		//jump effect
+		if(this.isJump)
+			this.stars.setPosition(this.sprite.getPositionX(), this.sprite.getPositionY());
+		//
 		var vel = this.body.getVel();
 		if (this.status == 'jumpUp') {
 			if (vel.y < 0.1) {
@@ -107,6 +119,7 @@ var Player = cc.Class.extend({
 			}
 		} else if (this.status == 'jumpDown') {
 			if (vel.y == 0) {
+				this.isJump = false;
 				this.status = 'running';
 				this.sprite.stopAllActions();
 				this.sprite.runAction(this.runningAction);
@@ -118,6 +131,7 @@ var Player = cc.Class.extend({
 	 * Trigger a jump action.
 	 */
 	jump: function () {
+		this.isJump = true;
 		if (this.status == 'running') {
 			//Jump music
 			cc.audioEngine.playEffect(res.sound.jump_mp3);

@@ -44,7 +44,7 @@ var GameScene = cc.Scene.extend({
 
 		var eyeX = this.gameLayer.getEyeX(), eyeY = this.gameLayer.getEyeY(); 
 		
-		eyeY > 0?eyeY:eyeY=0;
+		eyeY > 0? eyeY:eyeY=0;
 		
 		this.controlLayer.setPosition(
 				cc.p(-eyeX, -eyeY/1.8));
@@ -76,7 +76,7 @@ var GameScene = cc.Scene.extend({
 		this.addChild(this.controlLayer, 0);
 
 		//particle
-		var particle = cc.ParticleSystem(res.particle.plist);
+		var particle = cc.ParticleSystem(res.particle.circle);
 		particle.setPosition(800, 100);
 		this.addChild(particle,100);
 		//add background music

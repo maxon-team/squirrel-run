@@ -69,7 +69,10 @@ var Gold = cc.Class.extend({
 		this.sprite.removeFromParent();
 		this.sprite.release;
 		this.sprite = null;
-		
+	},
+	
+	getX : function() {
+		return this.sprite.getPositionX();
 	},
 	
 	getShape : function() {

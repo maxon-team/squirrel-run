@@ -45,7 +45,8 @@ var res = {
 	
 	//particle
 	particle: {
-		plist: 'res/stars.plist'
+		circle: 'res/circle_particle.plist',
+		stars: 'res/stars_particle.plist'
 	},
 	
 	//fire

@@ -40,23 +40,6 @@ var GameLayer = cc.Layer.extend({
 		var player = this.player = new Player(centerPos.x, centerPos.y);
 		this.addRole(player);
 		
-		//create platform
-//		var platform = new Platform(150,50,3);
-//		this.addRole(platform);
-//		var platform = new Platform(1300,200,1);
-//		this.addRole(platform);
-//		
-//		var platform = new Platform(1900,300,1);
-//		this.addRole(platform);
-//		
-//		var platform = new Platform(2500,100,1);
-//		this.addRole(platform);
-		
-		//platform.removeFromLayer();
-		
-		//var platform = new Platform(920,100,2);
-		//this.addRole(platform);
-		
 		// Event handling.
 		cc.eventManager.addListener({
 			event: cc.EventListener.TOUCH_ONE_BY_ONE,
