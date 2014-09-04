@@ -37,11 +37,27 @@ var res = {
 	          'res/far-bg.png',
 		      'res/near-bg.png'
 	          ],
+	// gold
+	gold: {
+		plist: 'res/gold.plist',
+		png: 'res/gold.png',
+	}, 
+	
+	//particle
+	particle: {
+		plist: 'res/stars.plist'
+	},
+	
+	//fire
+	fire: {
+		plist: 'res/fire.plist'
+	},
 	          
-	//Sound Effect
+	// Sound Effect
 	sound:{
 		bg_mp3: 'res/sound/bg.mp3',
-		jump_mp3: 'res/sound/jump.mp3'
+		jump_mp3: 'res/sound/jump.mp3',
+		gold_mp3: 'res/sound/eat_gold.mp3',
 	},
 	          
     HelloWorld_png : "res/HelloWorld.png",
@@ -49,8 +65,14 @@ var res = {
     CloseSelected_png : "res/CloseSelected.png",
     
     physics: {
-    	groundHeight: -100
+    	groundHeight: -1500
     }
+};
+
+var SpriteTag = {
+	player : 0,
+	gold : 1
+	
 };
 
 var g_resources = [];

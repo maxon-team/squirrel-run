@@ -6,34 +6,39 @@ var GameLayer = cc.Layer.extend({
 	// the hero sprite.
 	player: null,
 	
+	//all objects
+	objects: [],
+	
 	//platform
 	platformArr: [],
 	index: 0,
-	rmIndex:0,
+	
+	//gold
+	goldInx: 0,
 	
 	// the recognizer.
 	recognizer: null,
 
 	// virtual Pos of player on the scene.
 	playerPosOfScene: {
-		x: 300,
-		y: 200
+		x: 230,
+		y: 250
 	},
 
 	ctor: function(space) {
 		this._super();
 		this.space = space;
 		
+		//index init
+		this.index = 0;
+		this.goldInx = 0; 
+		
 		var winSize = cc.director.getWinSize();
-		var centerPos = cc.p(winSize.width / 2, winSize.height / 2);
+		var centerPos = cc.p(winSize.width / 2-100, 400);
 		
 		// Role init.
 		var player = this.player = new Player(centerPos.x, centerPos.y);
 		this.addRole(player);
-		
-		var platform = new Platform(400,120,2);
-		this.addRole(platform);
-		this.platformArr.push(platform);
 		
 		//create platform
 //		var platform = new Platform(150,50,3);
@@ -72,49 +77,38 @@ var GameLayer = cc.Layer.extend({
 	
 	update: function (dt) {
 		this.player.update(dt);
-		
-		//To Generate Platform Randomly
-		var curX = this.player.sprite.getPositionX();
-		//cc.log(curX + "    " + this.platformArr[this.index].getLastX()*0.8+"    "+this.index);
-		//if(this.platformArr[index].getLastX())
-		if(curX - this.platformArr[this.index].getLastX()*0.7 > 0) { //pass middle of platform
-			
-			//Get Random Data
-			var gap = parseInt(Math.random()*200+120); //100~200
-			var height = parseInt(Math.random()*200+50) //100~300
-			var block = parseInt(Math.random()*4);
-			
-			this.index++;
-			var platform = new Platform(this.platformArr[this.index-1].getLastX() + gap,height,block);
-			this.addRole(platform);
-			this.platformArr.push(platform);
-			
-			//remove platform which is out of scene
-			if(this.index >=5){
-				if(parseInt(curX - this.platformArr[this.index-5].getLastX()) > 400){
-					this.platformArr[this.index-5].removeFromLayer();
-					cc.log("curIndex:"+this.index+"  "+"remove: "+(this.index-5));
-				}
-			}
-		}
-		
+		new PlatformGenerator(this);
+		new GoldGenerator(this);
 	},
 	
+	//create
 	addRole: function (role) {
 		role.addToLayer(this.space, this);
 	},
 	
+	//remove
+	removeObjectByShape:function (shape) {
+		for (var i = 0; i < this.objects.length; i++) {
+			if (this.objects[i].getShape() == shape) {
+				this.objects[i].removeFromLayer();
+				this.objects.splice(i, 1);
+				break;
+			}
+		}
+	},
+	
 	//Tap to jump
 	onTouchBegan: function (touch, event) {
-		//var pos = touch.getLocation();
-		//event.getCurrentTarget().recognizer.beginPoint(pos.x, pos.y);
+		var pos = touch.getLocation();
+		event.getCurrentTarget().recognizer.beginPoint(pos.x, pos.y);
+		
 		event.getCurrentTarget().player.jump();
 
 		return true;
 	},
 
 	onTouchMoved: function (touch, event) {
-
+		event.getCurrentTarget().player.quickDown();
 	},
 
 	onTouchEnded: function (touch, event) {

@@ -18,7 +18,7 @@ var Player = cc.Class.extend({
 	status: 'running',
 	
 	// player speed.
-	runningSpeed: 2800,
+	runningSpeed: 2500,
 	
 	/**
 	 * Construct a new player.
@@ -30,7 +30,7 @@ var Player = cc.Class.extend({
 		this.runningAction = new cc.RepeatForever(new cc.Animate(
 				new cc.Animation([1, 2, 3, 4, 5, 6, 7, 8].map(function (i) {
 					return cc.spriteFrameCache.getSpriteFrame("panda_run_0" + i + ".png");
-				}), 0.06)
+				}), 0.05)
 		));
 		this.runningAction.retain();
 		
@@ -53,7 +53,7 @@ var Player = cc.Class.extend({
 
 		var contentSize = this.sprite.getContentSize();
 
-		var body = new cp.Body(10, cp.momentForBox(Number.POSITIVE_INFINITY, contentSize.width, contentSize.height));
+		var body = new cp.Body(5, cp.momentForBox(Number.POSITIVE_INFINITY, contentSize.width, contentSize.height));
 		body.setPos(cc.p(x, y));
 		body.applyImpulse(cp.v(this.runningSpeed, 0), cp.v(0, 0));
 		this.body = body;
@@ -103,7 +103,7 @@ var Player = cc.Class.extend({
 			if (vel.y < 0.1) {
 				this.status = 'jumpDown';
 				this.sprite.stopAllActions();
-				//this.sprite.runAction(this.jumpDownAction);
+				this.sprite.runAction(this.jumpDownAction);
 			}
 		} else if (this.status == 'jumpDown') {
 			if (vel.y == 0) {
@@ -124,6 +124,18 @@ var Player = cc.Class.extend({
 			
 			this.body.applyImpulse(cp.v(0, 4000), cp.v(0, 0));
 			this.status = 'jumpUp';
+			this.sprite.stopAllActions();
+			this.sprite.runAction(this.jumpUpAction);
+		}
+	},
+	
+	quickDown: function () {
+		if (this.status == 'jumpUp' || this.status == 'jumpDown') {
+			//Jump music
+			//cc.audioEngine.playEffect(res.sound.jump_mp3);
+
+			this.body.applyImpulse(cp.v(0, -300), cp.v(0, 0));
+			this.status = 'jumpDown';
 			this.sprite.stopAllActions();
 			this.sprite.runAction(this.jumpUpAction);
 		}

@@ -19,6 +19,9 @@
     "src/scene/game-scene.js",
     "src/util/simple-touch-recognizer.js",
     "src/role/player.js",
-    "src/role/platform.js"
+    "src/role/platform.js",
+    "src/role/gold.js",
+    "src/role/platform-generator.js",
+    "src/role/gold-generator.js"
   ]
 }

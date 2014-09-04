@@ -6,9 +6,12 @@ var GameScene = cc.Scene.extend({
 	// the control layer.
 	controlLayer: null,
 	
+	//shape to remove
+	shapesToRemove: [],
+
 	initSpace: function () {
 		this.space = new cp.Space();
-		this.space.gravity = cp.v(0, -500);
+		this.space.gravity = cp.v(0, -1500);
 
 		var wallBottom = new cp.SegmentShape(
 				this.space.staticBody,
@@ -19,7 +22,20 @@ var GameScene = cc.Scene.extend({
 				// thickness of wall
 				0);
 		this.space.addStaticShape(wallBottom);
+		
+		//Setup collision Handler
+		this.space.addCollisionHandler(
+				SpriteTag.player,
+				SpriteTag.gold,
+				this.collisionGold.bind(this), null, null, null);
 
+	},
+	
+	collisionGold:function (arbiter, space) {
+		var shapes = arbiter.getShapes();
+		this.shapesToRemove.push(shapes[1]);
+		//play gold music
+		cc.audioEngine.playEffect(res.sound.gold_mp3);
 	},
 
 	// called by schedule update.
@@ -27,13 +43,24 @@ var GameScene = cc.Scene.extend({
 		this.space.step(dt);
 
 		var eyeX = this.gameLayer.getEyeX(), eyeY = this.gameLayer.getEyeY(); 
-		this.controlLayer.setPosition(
-				cc.p(-eyeX, -eyeY));
 		
+		eyeY > 0?eyeY:eyeY=0;
+		
+		this.controlLayer.setPosition(
+				cc.p(-eyeX, -eyeY/1.8));
+
 		this.nearBgLayer.refresh(eyeX, eyeY);
+		this.nearBgLayer.setPositionY( -eyeY/15 );
 		
 		this.farBgLayer.refresh(eyeX / 2, eyeY);
-		this.farBgLayer.setPosition(cc.p(-eyeX/2, -eyeY))
+		this.farBgLayer.setPosition(cc.p(-eyeX/2, -eyeY/5))
+		
+		//remove collide objects 
+		for(var i = 0; i < this.shapesToRemove.length; i++) {
+			var shape = this.shapesToRemove[i];
+			this.gameLayer.removeObjectByShape(shape);
+		}
+		
 	},
 
 	onEnter: function() {
@@ -48,6 +75,10 @@ var GameScene = cc.Scene.extend({
 		this.addChild(this.farBgLayer = new GameBackgroundLayer(res.background[0]))
 		this.addChild(this.controlLayer, 0);
 
+		//particle
+		var particle = cc.ParticleSystem(res.particle.plist);
+		particle.setPosition(800, 100);
+		this.addChild(particle,100);
 		//add background music
 		cc.audioEngine.playMusic(res.sound.bg_mp3, true);
 

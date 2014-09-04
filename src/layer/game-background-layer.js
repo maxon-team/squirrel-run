@@ -1,5 +1,5 @@
 var GameBackgroundLayer = cc.Layer.extend({
-	
+
 	nearBg: null,
 	nearBgWidth: null,
 	nearBgIndex: 0,
@@ -9,7 +9,7 @@ var GameBackgroundLayer = cc.Layer.extend({
 
 		this.nearBg = this._tileBg(this._createBg(res).bind(this));
 	},
-	
+
 	refresh: function (eyeX, eyeY) {
 		var newNearBgIndex = parseInt(eyeX / this.nearBg[0].width);
 		if (this.nearBgIndex == newNearBgIndex) {
@@ -19,7 +19,7 @@ var GameBackgroundLayer = cc.Layer.extend({
 		this.nearBgIndex = newNearBgIndex;
 		return true;
 	},
-	
+
 	_tileBg: function (createMethod) {
 		var winSize = cc.director.getWinSize();
 		var doubleWinWidth = 2 * winSize.width;
@@ -33,7 +33,7 @@ var GameBackgroundLayer = cc.Layer.extend({
 		} while (remainWidth > 0);
 		return tiles;
 	},
-	
+
 	_createBg: function (res) {
 		return function (pos) {
 			pos = pos || cc.p(0, 0);
