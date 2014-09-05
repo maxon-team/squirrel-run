@@ -59,6 +59,7 @@ var GameScene = cc.Scene.extend({
 		}
 		
 		if (this.gameLayer.player.sprite.getPositionY() < 0) {
+			cc.director.pause();
 			this.addChild(new GameOverLayer(), 2);
 		}
 	},
