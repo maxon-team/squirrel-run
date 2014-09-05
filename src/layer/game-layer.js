@@ -9,10 +9,6 @@ var GameLayer = cc.Layer.extend({
 	//all objects
 	objects: [],
 	
-	//platform
-	platformArr: [],
-	index: 0,
-	
 	//gold
 	goldInx: 0,
 	
@@ -65,6 +61,10 @@ var GameLayer = cc.Layer.extend({
 		
 		this.platformGenerator.update(dt);
 		this.goldGenerator.update(dt);
+		
+		if (this.player.sprite.getPositionY() < 0) {
+			cc.director.runScene(new AppMenuScene());
+		}
 	},
 	
 	//create
@@ -89,7 +89,6 @@ var GameLayer = cc.Layer.extend({
 		var self = event.getCurrentTarget();
 		
 		self.recognizer.beginPoint(pos.x, pos.y);
-//		self.player.jump();
 
 		return true;
 	},

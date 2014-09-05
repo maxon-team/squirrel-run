@@ -42,17 +42,6 @@ var Platform = cc.Class.extend({
 		this.platform.setBody(body);
  
 		this.shape = new cp.BoxShape(body, cSize.width, cSize.height );
-		//this.shape_l.setElasticity(0);
-		//this.shape_r.setElasticity(0); 
-		
-//		var shape = new cp.SegmentShape(
-//				body,
-//				// Start point
-//				cc.p(0, 0),
-//				// MAX INT:4294967295
-//				cc.p(length * contentSize.width, 0),
-//				// thickness of wall
-//				contentSize.height / 2);
 	},
 
 	/**
@@ -77,15 +66,15 @@ var Platform = cc.Class.extend({
 		this.platform.release();
 	},
 	
-	getLastX : function() {
-			return this.platform.getPositionX()+this.width/2;
+	getLastX: function() {
+		return this.platform.getPositionX() + this.width / 2;
 	},
 	
-	getX : function() {
-		    return this.platform.getPositionX()-this.width/2;
+	getX: function() {
+		return this.platform.getPositionX() - this.width / 2;
 	},
 	
-	getY : function() {
-			return this.platform.getPositionY();
+	getY: function() {
+		return this.platform.getPositionY();
 	}
 }) 
