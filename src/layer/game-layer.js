@@ -58,7 +58,7 @@ var GameLayer = cc.Layer.extend({
 		
 		var platform = this.platformGenerator.update(dt);
 		if (platform && Math.random() * 2 > 1) {
-			this.goldGenerator.addRandomGold(platform.getX(), platform.getY());
+			this.goldGenerator.addRandomGold(platform);
 		}
 		
 		this.goldGenerator.update(dt);

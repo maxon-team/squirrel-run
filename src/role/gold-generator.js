@@ -9,7 +9,7 @@ var GoldGenerator = cc.Class.extend({
 		this.layer = layer;
 	},
 	
-	create : function(type) {
+	create : function(type, platform) {
 		switch(type) {
 			case 0 :   //bridge shape
 				var x = this.px + 200;
@@ -45,7 +45,7 @@ var GoldGenerator = cc.Class.extend({
 				var y = this.py + 100;
 				var nums = 0;
 				
-				if(this.layer.platformArr[this.layer.index].length == 0 ){  //one length
+				if(platform.length == 0 ){  //one length
 					nums = 4;
 					x = this.px + 20;
 				} else {
@@ -64,7 +64,7 @@ var GoldGenerator = cc.Class.extend({
 				var y = this.py + 100;
 				var nums = 0;
 
-				if(this.layer.platformArr[this.layer.index].length == 0 ){  //one length
+				if(platform.length == 0 ){  //one length
 					nums = 4;
 					x = this.px + 20;
 				} else {
@@ -157,10 +157,10 @@ var GoldGenerator = cc.Class.extend({
 		}
 	},
 	
-	addRandomGold: function (px, py) {
-		this.px = px;
-		this.py = py;
-		var randType = parseInt(Math.random() * 7);
+	addRandomGold: function (platform) {
+		this.px = platform.getX();
+		this.py = platform.getY();
+		var randType = parseInt(Math.random() * 7, platform);
 		this.create(randType);
 	},
 	
