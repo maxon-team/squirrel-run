@@ -62,6 +62,7 @@ var GameLayer = cc.Layer.extend({
 
 	update: function (dt) {
 		this.player.update(dt);
+		
 		this.platformGenerator.update(dt);
 		this.goldGenerator.update(dt);
 	},
@@ -88,17 +89,32 @@ var GameLayer = cc.Layer.extend({
 		var self = event.getCurrentTarget();
 		
 		self.recognizer.beginPoint(pos.x, pos.y);
-		self.player.jump();
+//		self.player.jump();
 
 		return true;
 	},
 
 	onTouchMoved: function (touch, event) {
-		event.getCurrentTarget().player.quickDown();
+		var pos = touch.getLocation();
+		var self = event.getCurrentTarget();
+
+		self.recognizer.movePoint(pos.x, pos.y);
 	},
 
 	onTouchEnded: function (touch, event) {
-
+		var pos = touch.getLocation();
+		var self = event.getCurrentTarget();
+		
+		self.recognizer.endPoint(pos.x, pos.y);
+		
+		switch (self.recognizer.result) {
+		case 'down':
+			self.player.quickDown();
+			break;
+		case 'up':
+			self.player.doubleJump();
+			break;
+		}
 	},
 
 	getEyeX: function () {

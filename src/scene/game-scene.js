@@ -42,15 +42,12 @@ var GameScene = cc.Scene.extend({
 	update: function (dt) {
 		this.space.step(dt);
 
-		var eyeX = this.gameLayer.getEyeX(), eyeY = this.gameLayer.getEyeY(); 
-		
-		eyeY > 0? eyeY:eyeY=0;
+		var eyeX = this.gameLayer.getEyeX(), eyeY = Math.max(this.gameLayer.getEyeY(), 0); 
 		
 		this.controlLayer.setPosition(
 				cc.p(-eyeX, -eyeY/1.8));
 
 		this.nearBgLayer.refresh(eyeX, eyeY);
-		this.nearBgLayer.setPositionY( -eyeY/15 );
 		
 		this.farBgLayer.refresh(eyeX / 2, eyeY);
 		this.farBgLayer.setPosition(cc.p(-eyeX/2, -eyeY/5))

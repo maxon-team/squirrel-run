@@ -111,7 +111,7 @@ var Player = cc.Class.extend({
 			this.stars.setPosition(this.sprite.getPositionX(), this.sprite.getPositionY());
 		//
 		var vel = this.body.getVel();
-		if (this.status == 'jumpUp') {
+		if (this.status.startsWith('jumpUp')) {
 			if (vel.y < 0.1) {
 				this.status = 'jumpDown';
 				this.sprite.stopAllActions();
@@ -143,8 +143,19 @@ var Player = cc.Class.extend({
 		}
 	},
 	
+	doubleJump: function () {
+		if (this.status == 'jumpUp') {
+			this.body.applyImpulse(cp.v(0, 2000), cp.v(0, 0));
+			this.status = 'jumpUp2';
+			this.sprite.stopAllActions();
+			this.sprite.runAction(this.jumpUpAction);
+		} else {
+			this.jump();
+		}
+	},
+	
 	quickDown: function () {
-		if (this.status == 'jumpUp' || this.status == 'jumpDown') {
+		if (this.status.startsWith('jumpUp') || this.status == 'jumpDown') {
 			//Jump music
 			//cc.audioEngine.playEffect(res.sound.jump_mp3);
 
