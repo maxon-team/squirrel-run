@@ -45,5 +45,7 @@ var PlatformGenerator = cc.Class.extend({
 		if (mostX < layer.getEyeX() + winSize.width) {
 			return this.generate(mostX);
 		}
+		
+		return null;
 	}
 });

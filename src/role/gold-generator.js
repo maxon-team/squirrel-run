@@ -158,10 +158,11 @@ var GoldGenerator = cc.Class.extend({
 	},
 	
 	addRandomGold: function (platform) {
+		if (! platform) return;
 		this.px = platform.getX();
 		this.py = platform.getY();
-		var randType = parseInt(Math.random() * 7, platform);
-		this.create(randType);
+		var randType = parseInt(Math.random() * 7);
+		this.create(randType, platform);
 	},
 	
 	update: function () {
