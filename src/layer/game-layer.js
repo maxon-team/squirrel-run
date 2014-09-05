@@ -62,10 +62,6 @@ var GameLayer = cc.Layer.extend({
 		}
 		
 		this.goldGenerator.update(dt);
-		
-		if (this.player.sprite.getPositionY() < 0) {
-			cc.director.runScene(new AppMenuScene());
-		}
 	},
 	
 	//create

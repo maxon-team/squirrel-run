@@ -5,13 +5,6 @@ var AppMenuLayer = cc.Layer.extend({
 	 */
 	ctor: function(){
 		this._super();
-	},
-	
-	/**
-	 * Initialize the content.
-	 */
-	init: function(){
-		this._super();
 
 		var winsize = cc.director.getWinSize();
 		var spritebg = new cc.Sprite(res.HelloWorld_png);

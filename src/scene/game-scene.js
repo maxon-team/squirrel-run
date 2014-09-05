@@ -34,6 +34,7 @@ var GameScene = cc.Scene.extend({
 	collisionGold:function (arbiter, space) {
 		var shapes = arbiter.getShapes();
 		this.shapesToRemove.push(shapes[1]);
+		statistics.coins += 1;
 		//play gold music
 		cc.audioEngine.playEffect(res.sound.gold_mp3);
 	},
@@ -44,8 +45,7 @@ var GameScene = cc.Scene.extend({
 
 		var eyeX = this.gameLayer.getEyeX(), eyeY = Math.max(this.gameLayer.getEyeY(), 0); 
 		
-		this.controlLayer.setPosition(
-				cc.p(-eyeX, -eyeY/1.8));
+		this.controlLayer.setPosition(cc.p(-eyeX, -eyeY/1.8));
 
 		this.nearBgLayer.refresh(eyeX, eyeY);
 		
@@ -58,6 +58,9 @@ var GameScene = cc.Scene.extend({
 			this.gameLayer.removeObjectByShape(shape);
 		}
 		
+		if (this.gameLayer.player.sprite.getPositionY() < 0) {
+			this.addChild(new GameOverLayer(), 2);
+		}
 	},
 
 	onEnter: function() {
@@ -71,7 +74,8 @@ var GameScene = cc.Scene.extend({
 
 		this.addChild(this.farBgLayer = new GameBackgroundLayer(res.background[0]))
 		this.addChild(this.controlLayer, 0);
-
+		this.addChild(new HubLayer(), 1);
+		
 		//particle
 		var particle = cc.ParticleSystem(res.particle.circle);
 		particle.setPosition(800, 100);

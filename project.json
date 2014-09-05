@@ -16,12 +16,16 @@
     "src/scene/app-menu-scene.js",
     "src/layer/game-layer.js",
     "src/layer/game-background-layer.js",
+    "src/layer/hub-layer.js",
     "src/scene/game-scene.js",
+    "src/layer/game-over-layer.js",
+    "src/scene/game-over-scene.js",
     "src/util/simple-touch-recognizer.js",
     "src/role/player.js",
     "src/role/platform.js",
     "src/role/gold.js",
     "src/role/platform-generator.js",
-    "src/role/gold-generator.js"
+    "src/role/gold-generator.js",
+    "src/util/statistics.js"
   ]
 }
