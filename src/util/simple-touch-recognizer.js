@@ -1,15 +1,13 @@
 (function(exports) {
 	'use strict';
 	
-	function Point(x, y)
-	{
+	function Point(x, y) {
 		this.X = x;
 		this.Y = y;
 	}
 
 	// class define
-	function SimpleRecognizer()
-	{
+	function SimpleRecognizer() {
 		this.points = [];
 		this.result = "";
 	}

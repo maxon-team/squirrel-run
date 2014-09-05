@@ -4,26 +4,7 @@ var GoldGenerator = cc.Class.extend({
 	layer : null,
 	goldArr: [],
 	ctor : function(layer) {
-		//cc.log(layer.index);
 		this.layer = layer;
-		var ginx = layer.goldInx;
-		var chance = 0;
-		layer.goldInx = layer.index;
-		if(layer.goldInx > ginx){
-			if(layer.platformArr[layer.index].length > 0 ){
-				chance = (parseInt(Math.random()*2) == 1) ? 1 : 0;
-			}else {
-				chance = (layer.goldInx%2 == 0)? 1 : 0; 
-			}
-			if(chance) {  //consider whether to create gold
-				this.px = layer.platformArr[layer.goldInx].getX();
-				this.py = layer.platformArr[layer.goldInx].getY();
-				var randType = parseInt(Math.random()*7);
-				this.create(randType);
-			}
-		}
-		//remove
-		this.removeGold();
 	},
 	
 	create : function(type) {
@@ -174,6 +155,30 @@ var GoldGenerator = cc.Class.extend({
 				}
 			}
 		}
+	},
+	
+	update: function () {
+		var layer = this.layer;
 		
+		//cc.log(layer.index);
+		this.layer = layer;
+		var ginx = layer.goldInx;
+		var chance = 0;
+		layer.goldInx = layer.index;
+		if(layer.goldInx > ginx){
+			if(layer.platformArr[layer.index].length > 0 ){
+				chance = (parseInt(Math.random()*2) == 1) ? 1 : 0;
+			}else {
+				chance = (layer.goldInx%2 == 0)? 1 : 0; 
+			}
+			if(chance) {  //consider whether to create gold
+				this.px = layer.platformArr[layer.goldInx].getX();
+				this.py = layer.platformArr[layer.goldInx].getY();
+				var randType = parseInt(Math.random()*7);
+				this.create(randType);
+			}
+		}
+		//remove
+		this.removeGold();
 	}
 }); 

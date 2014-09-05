@@ -1,6 +1,12 @@
 var PlatformGenerator = cc.Class.extend({
+	layer: null,
 	platformArr : [],
 	ctor : function(layer) {
+		this.layer = layer;
+	},
+	update: function () {
+		var layer = this.layer;
+		
 		//To Generate Platform Randomly
 		var curX = layer.player.sprite.getPositionX();
 		//platform init
@@ -10,7 +16,7 @@ var PlatformGenerator = cc.Class.extend({
 			this.platformArr.push(platform);
 			layer.platformArr = this.platformArr;
 		}
-		                                          //-300
+		//-300
 		if(curX - (this.platformArr[layer.index].getX()-300) > 0) { //pass middle of platform
 			//Get Random Data
 			var gap = parseInt(Math.random()*300+100); //100~200
@@ -21,7 +27,7 @@ var PlatformGenerator = cc.Class.extend({
 			var platform = new Platform(this.platformArr[layer.index-1].getLastX() + gap,height,block);
 			layer.addRole(platform);
 			this.platformArr.push(platform);
-			
+
 			layer.platformArr = this.platformArr;
 
 			//remove platform which is out of scene 

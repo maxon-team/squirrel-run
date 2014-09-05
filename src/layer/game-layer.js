@@ -56,12 +56,14 @@ var GameLayer = cc.Layer.extend({
 		this._debugNode.setVisible(true);
 		//this.addChild(this._debugNode);
 		
+		this.platformGenerator = new PlatformGenerator(this);
+		this.goldGenerator = new GoldGenerator(this);
 	},
-	
+
 	update: function (dt) {
 		this.player.update(dt);
-		new PlatformGenerator(this);
-		new GoldGenerator(this);
+		this.platformGenerator.update(dt);
+		this.goldGenerator.update(dt);
 	},
 	
 	//create
@@ -83,9 +85,10 @@ var GameLayer = cc.Layer.extend({
 	//Tap to jump
 	onTouchBegan: function (touch, event) {
 		var pos = touch.getLocation();
-		event.getCurrentTarget().recognizer.beginPoint(pos.x, pos.y);
+		var self = event.getCurrentTarget();
 		
-		event.getCurrentTarget().player.jump();
+		self.recognizer.beginPoint(pos.x, pos.y);
+		self.player.jump();
 
 		return true;
 	},
