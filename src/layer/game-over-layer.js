@@ -15,7 +15,7 @@ var GameOverLayer = cc.LayerColor.extend({
 		} else if (statistics.score > 1000) {
 			text = "恭喜你获得了 " + statistics.score + " 的高分！"; 
 		} else {
-			text = '不错了，再接再厉。'
+			text = '不错了，再接再厉。';
 		}
 		
 		this.labelCoin = cc.LabelTTF.create(text, "Helvetica", 52);

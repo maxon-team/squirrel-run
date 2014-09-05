@@ -19,7 +19,6 @@
     "src/layer/hub-layer.js",
     "src/scene/game-scene.js",
     "src/layer/game-over-layer.js",
-    "src/scene/game-over-scene.js",
     "src/util/simple-touch-recognizer.js",
     "src/role/player.js",
     "src/role/platform.js",
