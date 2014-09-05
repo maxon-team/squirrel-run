@@ -9,9 +9,6 @@ var GameLayer = cc.Layer.extend({
 	//all objects
 	objects: [],
 	
-	//gold
-	goldInx: 0,
-	
 	// the recognizer.
 	recognizer: null,
 
@@ -59,7 +56,11 @@ var GameLayer = cc.Layer.extend({
 	update: function (dt) {
 		this.player.update(dt);
 		
-		this.platformGenerator.update(dt);
+		var platform = this.platformGenerator.update(dt);
+		if (platform && Math.random() * 2 > 1) {
+			this.goldGenerator.addRandomGold(platform.getX(), platform.getY());
+		}
+		
 		this.goldGenerator.update(dt);
 		
 		if (this.player.sprite.getPositionY() < 0) {

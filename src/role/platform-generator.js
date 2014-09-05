@@ -17,9 +17,13 @@ var PlatformGenerator = cc.Class.extend({
 		var gap = parseInt(Math.random()*300+100); //100~200
 		var height = parseInt(Math.random()*200+100) //100~300
 		var block = parseInt(Math.random()*4);
+		
 		var platform = new Platform(x + gap, height, block);
+		
 		this.layer.addRole(platform);
 		this.platformArr.push(platform);
+		
+		return platform;
 	},
 	
 	update: function () {
@@ -39,7 +43,7 @@ var PlatformGenerator = cc.Class.extend({
 		
 		var mostX = this.platformArr[this.platformArr.length - 1].getLastX();
 		if (mostX < layer.getEyeX() + winSize.width) {
-			this.generate(mostX);
+			return this.generate(mostX);
 		}
 	}
 });
