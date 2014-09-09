@@ -61,9 +61,10 @@ var GameScene = cc.Scene.extend({
 		if (this.gameLayer.player.sprite.getPositionY() < 0) {
 			cc.director.pause();
 			this.addChild(new GameOverLayer(), 2);
+			gameover = true;
 		}
 	},
-
+	
 	onEnter: function() {
 		this._super();
 
@@ -76,6 +77,8 @@ var GameScene = cc.Scene.extend({
 		this.addChild(this.farBgLayer = new GameBackgroundLayer(res.background[0]))
 		this.addChild(this.controlLayer, 0);
 		this.addChild(new HubLayer(), 1);
+
+		cc.director.resume();
 		
 		//particle
 		var particle = cc.ParticleSystem(res.particle.circle);
