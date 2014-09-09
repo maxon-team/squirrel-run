@@ -144,8 +144,8 @@ var Player = cc.Class.extend({
 	},
 	
 	doubleJump: function () {
-		if (this.status == 'jumpUp') {
-			this.body.applyImpulse(cp.v(0, 2000), cp.v(0, 0));
+		if (this.status.startsWith('jump')) {
+			this.body.applyImpulse(cp.v(0, 4000), cp.v(0, 0));
 			this.status = 'jumpUp2';
 			this.sprite.stopAllActions();
 			this.sprite.runAction(this.jumpUpAction);
