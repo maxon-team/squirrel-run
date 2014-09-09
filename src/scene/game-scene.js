@@ -79,6 +79,7 @@ var GameScene = cc.Scene.extend({
 		this.addChild(new HubLayer(), 1);
 
 		cc.director.resume();
+		statistics.reset();
 		
 		//particle
 		var particle = cc.ParticleSystem(res.particle.circle);

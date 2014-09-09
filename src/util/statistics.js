@@ -4,5 +4,9 @@ var statistics = {
 	
 	get score() {
 		return this.coins * 10;
+	},
+	
+	reset: function () {
+		this.coins = 0;
 	}
 };
