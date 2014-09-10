@@ -42,6 +42,7 @@ var Platform = cc.Class.extend({
 		this.platform.setBody(body);
  
 		this.shape = new cp.BoxShape(body, cSize.width, cSize.height );
+		this.shape.setElasticity( 0 );
 	},
 
 	/**

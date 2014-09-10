@@ -60,6 +60,8 @@ var GameOverLayer = cc.LayerColor.extend({
 				cc.CallFunc.create(this.onCallback.bind(this)));
 		this.board.runAction(action);
 		this.menu.runAction(action.clone());
+		//play button effect
+		cc.audioEngine.playEffect(res.sound.button);
 		
 	},
 	

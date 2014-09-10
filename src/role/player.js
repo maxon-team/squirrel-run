@@ -63,6 +63,7 @@ var Player = cc.Class.extend({
 
 		var shape = new cp.BoxShape(body, contentSize.width - 14, contentSize.height);
 		this.shape = shape;
+		this.shape.setElasticity(0);
 
 		this.sprite.runAction(this.runningAction);
 		this.status = "running";

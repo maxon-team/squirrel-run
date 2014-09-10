@@ -64,7 +64,9 @@ var res = {
 		bg_mp3: 'res/sound/bg.mp3',
 		jump_mp3: 'res/sound/jump.mp3',
 		gold_mp3: 'res/sound/eat_gold.mp3',
-		game_over: 'res/sound/game_over.mp3'
+		game_over: 'res/sound/game_over.mp3',
+		button: 'res/sound/button.mp3',
+		opening: 'res/sound/opening.mp3'
 	},
 	
 	//font

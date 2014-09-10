@@ -90,6 +90,7 @@ var GameScene = cc.Scene.extend({
 		particle.setPosition(800, 100);
 		this.addChild(particle,100);
 		//add background music
+		cc.audioEngine.stopMusic();
 		cc.audioEngine.playMusic(res.sound.bg_mp3, true);
 
 		this.scheduleUpdate();

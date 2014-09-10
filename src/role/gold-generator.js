@@ -30,8 +30,8 @@ var GoldGenerator = cc.Class.extend({
 				var x = this.px + 130;
 				var y = this.py + 150;
 				
-				for(var i =0; i<8; i++) {
-					for(var j=0; j<4; j++) {
+				for(var i =0; i<4; i++) {
+					for(var j=0; j<3; j++) {
 						var gold = new Gold(x+i*60, y+j*60);
 						this.goldArr.push(gold);
 						this.layer.objects.push(gold);    //collide use

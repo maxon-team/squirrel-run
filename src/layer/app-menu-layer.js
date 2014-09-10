@@ -28,12 +28,16 @@ var AppMenuLayer = cc.Layer.extend({
 				this.onAbout, this));
 		aboutBtn.setPosition(cc.p(winsize.width / 2, winsize.height / 2 - 140));
 		this.addChild(aboutBtn);
+		
+		//play opening music
+		cc.audioEngine.playMusic(res.sound.opening);
 	},
 
 	/**
 	 * Triggered when play is clicked.
 	 */
 	onPlay : function () {
+		cc.audioEngine.playEffect(res.sound.button);
 		cc.director.runScene(new GameScene());
 	},
 	
