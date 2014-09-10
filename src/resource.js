@@ -53,14 +53,25 @@ var res = {
 	fire: {
 		plist: 'res/fire.plist'
 	},
+	
+	//game over res
+	over: {
+		board: 'res/score-board.png'
+	},
 	          
 	// Sound Effect
 	sound:{
 		bg_mp3: 'res/sound/bg.mp3',
 		jump_mp3: 'res/sound/jump.mp3',
 		gold_mp3: 'res/sound/eat_gold.mp3',
+		game_over: 'res/sound/game_over.mp3'
 	},
-	          
+	
+	//font
+	font: {
+		gold : 'res/font/record-lemon.fnt'
+	},
+        
     HelloWorld_png : "res/HelloWorld.png",
     CloseNormal_png : "res/CloseNormal.png",
     CloseSelected_png : "res/CloseSelected.png",

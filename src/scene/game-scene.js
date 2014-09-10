@@ -6,6 +6,7 @@ var GameScene = cc.Scene.extend({
 	// the control layer.
 	controlLayer: null,
 	
+	gameover:false,
 	//shape to remove
 	shapesToRemove: [],
 
@@ -58,10 +59,13 @@ var GameScene = cc.Scene.extend({
 			this.gameLayer.removeObjectByShape(shape);
 		}
 		
-		if (this.gameLayer.player.sprite.getPositionY() < 0) {
-			cc.director.pause();
+		if (this.gameLayer.player.sprite.getPositionY() < -100 && !this.gameover) {
+			//cc.director.pause();
 			this.addChild(new GameOverLayer(), 2);
-			gameover = true;
+			this.gameover = true;
+			//play gameover music
+			cc.audioEngine.stopMusic();
+			cc.audioEngine.playEffect(res.sound.game_over);
 		}
 	},
 	

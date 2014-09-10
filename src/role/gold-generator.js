@@ -145,7 +145,6 @@ var GoldGenerator = cc.Class.extend({
 	},
 	
 	removeGold : function() {
-		if(this.layer.goldInx>3){
 			for(var i =0; i<this.goldArr.length; i++) {
 				if(this.goldArr[i].getShape() != null) {
 					if(this.layer.player.sprite.getPositionX() - this.goldArr[i].getX() > 800){
@@ -154,7 +153,6 @@ var GoldGenerator = cc.Class.extend({
 					}
 				}
 			}
-		}
 	},
 	
 	addRandomGold: function (platform) {

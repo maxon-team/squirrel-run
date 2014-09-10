@@ -51,6 +51,7 @@ var GameLayer = cc.Layer.extend({
 		
 		this.platformGenerator = new PlatformGenerator(this);
 		this.goldGenerator = new GoldGenerator(this);
+		
 	},
 
 	update: function (dt) {
@@ -84,7 +85,7 @@ var GameLayer = cc.Layer.extend({
 	onTouchBegan: function (touch, event) {
 		var pos = touch.getLocation();
 		var self = event.getCurrentTarget();
-		
+		self.player.jump();
 		self.recognizer.beginPoint(pos.x, pos.y);
 
 		return true;
@@ -93,24 +94,24 @@ var GameLayer = cc.Layer.extend({
 	onTouchMoved: function (touch, event) {
 		var pos = touch.getLocation();
 		var self = event.getCurrentTarget();
-
+		self.player.quickDown();
 		self.recognizer.movePoint(pos.x, pos.y);
 	},
 
 	onTouchEnded: function (touch, event) {
-		var pos = touch.getLocation();
-		var self = event.getCurrentTarget();
-		
-		self.recognizer.endPoint(pos.x, pos.y);
-		
-		switch (self.recognizer.result) {
-		case 'down':
-			self.player.quickDown();
-			break;
-		case 'up':
-			self.player.doubleJump();
-			break;
-		}
+//		var pos = touch.getLocation();
+//		var self = event.getCurrentTarget();
+//		
+//		self.recognizer.endPoint(pos.x, pos.y);
+//		
+//		switch (self.recognizer.result) {
+//		case 'down':
+//			self.player.quickDown();
+//			break;
+//		case 'up':
+//			self.player.doubleJump();
+//			break;
+//		}
 	},
 
 	getEyeX: function () {
