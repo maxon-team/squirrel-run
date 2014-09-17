@@ -12,6 +12,20 @@ var res = {
 		selected: 'res/start-btn-selected.png' 
 	},
 	
+	//menu
+	menu: {
+		bg: 'res/menu-bg.png',
+		playBtn: 'res/play-btn.png',
+		playBtnS: 'res/play-btn-s.png',
+		storeBtn: 'res/store-btn.png',
+		storeBtnS: 'res/store-btn-s.png',
+		setBtn: 'res/set-btn.png',
+		setBtnS: 'res/set-btn-s.png',
+		aboutBtn: 'res/about-btn.png',
+		aboutBtnS: 'res/about-btn-s.png',
+		logo: 'res/game-logo.png'
+	},
+	
 	// Squirrel animation resources.
 	squirrel: {
 		plist: 'res/squirrel-running.plist',
@@ -69,12 +83,11 @@ var res = {
 		opening: 'res/sound/opening.mp3'
 	},
 	
-	//font
-	font: {
-		gold : 'res/font/record-lemon.fnt'
+	ui: {
+		goldbar: 'res/ui/gold-bar.png',
+		energybar: 'res/ui/energy-bar.png'
 	},
-        
-    HelloWorld_png : "res/HelloWorld.png",
+     
     CloseNormal_png : "res/CloseNormal.png",
     CloseSelected_png : "res/CloseSelected.png",
     
