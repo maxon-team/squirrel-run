@@ -45,24 +45,30 @@ var GameLayer = cc.Layer.extend({
 		this.scheduleUpdate();
 		
 		//physic Debug
-		this._debugNode = cc.PhysicsDebugNode.create(this.space);
-		this._debugNode.setVisible(true);
-		//this.addChild(this._debugNode);
+//		this._debugNode = cc.PhysicsDebugNode.create(this.space);
+//		this._debugNode.setVisible(true);
+//		this.addChild(this._debugNode);
 		
 		this.platformGenerator = new PlatformGenerator(this);
 		this.goldGenerator = new GoldGenerator(this);
-		
+		this.frogGenerator = new FrogGenerator(this);
 	},
 
 	update: function (dt) {
 		this.player.update(dt);
 		
 		var platform = this.platformGenerator.update(dt);
+		
+		//add gold randomly
 		if (platform && Math.random() * 2 > 1) {
 			this.goldGenerator.addRandomGold(platform);
 		}
-		
 		this.goldGenerator.update(dt);
+		
+		//add frog enemy randomly
+		if (true) {
+			this.frogGenerator.addRandomFrog(platform);
+		}
 	},
 	
 	//create

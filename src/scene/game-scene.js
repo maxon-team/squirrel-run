@@ -9,7 +9,9 @@ var GameScene = cc.Scene.extend({
 	gameover:false,
 	//shape to remove
 	shapesToRemove: [],
-
+	//judge beAte
+	beAte: false,
+	
 	initSpace: function () {
 		this.space = new cp.Space();
 		this.space.gravity = cp.v(0, -1500);
@@ -22,6 +24,7 @@ var GameScene = cc.Scene.extend({
 				cp.v(4294967295, res.physics.groundHeight),
 				// thickness of wall
 				0);
+		wallBottom.setCollisionType(SpriteTag.ground);
 		this.space.addStaticShape(wallBottom);
 		
 		//Setup collision Handler
@@ -30,9 +33,14 @@ var GameScene = cc.Scene.extend({
 				SpriteTag.gold,
 				this.collisionGold.bind(this), null, null, null);
 
+		//frog collision handler
+		this.space.addCollisionHandler(
+				SpriteTag.player,
+				SpriteTag.frog,
+				this.collisionFrog.bind(this), null, null, null);
 	},
 	
-	collisionGold:function (arbiter, space) {
+	collisionGold: function (arbiter, space) {
 		var shapes = arbiter.getShapes();
 		this.shapesToRemove.push(shapes[1]);
 		statistics.coins += 1;
@@ -40,33 +48,53 @@ var GameScene = cc.Scene.extend({
 		cc.audioEngine.playEffect(res.sound.gold_mp3);
 	},
 
+	collisionFrog: function(arbiter, space) {
+		var shapes = arbiter.getShapes();
+		//judge eat or die
+		if(this.gameLayer.player.status != 'running') {
+			this.shapesToRemove.push(shapes[1]);
+			//play frog music
+			cc.audioEngine.playEffect(res.sound.enemyDied);
+		}else{
+			this.beAte = true;
+			this.shapesToRemove.push(shapes[1]);
+		}
+	},
+	
 	// called by schedule update.
 	update: function (dt) {
 		this.space.step(dt);
+		if(!this.gameover) {
 
-		var eyeX = this.gameLayer.getEyeX(), eyeY = Math.max(this.gameLayer.getEyeY(), 0); 
-		
-		this.controlLayer.setPosition(cc.p(-eyeX, -eyeY/1.8));
+			var eyeX = this.gameLayer.getEyeX(), eyeY = Math.max(this.gameLayer.getEyeY(), 0); 
 
-		this.nearBgLayer.refresh(eyeX, eyeY);
-		
-		this.farBgLayer.refresh(eyeX / 2, eyeY);
-		this.farBgLayer.setPosition(cc.p(-eyeX/2, -eyeY/5))
-		
-		//remove collide objects 
-		for(var i = 0; i < this.shapesToRemove.length; i++) {
-			var shape = this.shapesToRemove[i];
-			this.gameLayer.removeObjectByShape(shape);
+			this.controlLayer.setPosition(cc.p(-eyeX, -eyeY/1.8));
+
+			this.nearBgLayer.refresh(eyeX, eyeY);
+
+			this.farBgLayer.refresh(eyeX / 2, eyeY);
+			this.farBgLayer.setPosition(cc.p(-eyeX/2, -eyeY/5))
+
+			//remove collide objects 
+			for(var i = 0; i < this.shapesToRemove.length; i++) {
+				var shape = this.shapesToRemove[i];
+				this.gameLayer.removeObjectByShape(shape);
+			}
+			
+			if ( (this.gameLayer.player.sprite.getPositionY() < -100 || this.beAte) && !this.gameover) {
+				this.gameLayer.player.died();
+				//cc.director.pause();
+				this.addChild(new GameOverLayer(), 2);
+				this.gameover = true;
+				//play gameover music
+				cc.audioEngine.stopMusic();
+				cc.audioEngine.playEffect(res.sound.game_over);
+				this.gameover = true;
+			}
+		} else {
+			return;
 		}
 		
-		if (this.gameLayer.player.sprite.getPositionY() < -100 && !this.gameover) {
-			//cc.director.pause();
-			this.addChild(new GameOverLayer(), 2);
-			this.gameover = true;
-			//play gameover music
-			cc.audioEngine.stopMusic();
-			cc.audioEngine.playEffect(res.sound.game_over);
-		}
 	},
 	
 	onEnter: function() {

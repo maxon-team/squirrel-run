@@ -5,7 +5,7 @@ var GameOverLayer = cc.LayerColor.extend({
 	// constructor
 	ctor:function () {
 		this._super();
-		this.init(cc.color(0, 0, 0, 100));
+		this.init(cc.color(0, 0, 0, 80));
 		
 		var winSize = cc.director.getWinSize();
 		
@@ -23,18 +23,18 @@ var GameOverLayer = cc.LayerColor.extend({
 //		this.labelCoin.setPosition(cc.p(winSize.width / 2, winSize.height / 2 + 100));
 //		this.addChild(this.labelCoin);
 		
-		cc.MenuItemFont.setFontSize(30);
-		var menuItemRestart = new cc.MenuItemSprite(
-				new cc.Sprite(res.startBtn.normal),
-				new cc.Sprite(res.startBtn.selected),
-				this.onRestart, this);
-		this.menu = new cc.Menu(menuItemRestart);
-		this.menu.attr({
-			x:winSize.width+250,
-			y:winSize.height/2-200,
-		});
-		this.menu.setScale(0.7);
-		this.addChild(this.menu,1);
+//		cc.MenuItemFont.setFontSize(30);
+//		var menuItemRestart = new cc.MenuItemSprite(
+//				new cc.Sprite(res.startBtn.normal),
+//				new cc.Sprite(res.startBtn.selected),
+//				this.onRestart, this);
+//		this.menu = new cc.Menu(menuItemRestart);
+//		this.menu.attr({
+//			x:winSize.width+250,
+//			y:winSize.height/2-200,
+//		});
+//		this.menu.setScale(0.7);
+//		this.addChild(this.menu,1);
 		
 		//score board
 		this.board = new cc.Sprite(res.over.board);
@@ -47,7 +47,7 @@ var GameOverLayer = cc.LayerColor.extend({
 		var actionTo = cc.MoveTo.create(0.7, cc.p(winSize.width/2, winSize.height/2)).easing(cc.easeBounceOut());
 		var actionTo1 = cc.MoveTo.create(0.7, cc.p(winSize.width/2-120, winSize.height/2-200)).easing(cc.easeBounceOut());
 		this.board.runAction(actionTo);
-		this.menu.runAction(actionTo1);
+		//this.menu.runAction(actionTo1);
 		
 	},
 	
@@ -59,7 +59,7 @@ var GameOverLayer = cc.LayerColor.extend({
 				actionTo,
 				cc.CallFunc.create(this.onCallback.bind(this)));
 		this.board.runAction(action);
-		this.menu.runAction(action.clone());
+		//this.menu.runAction(action.clone());
 		//play button effect
 		cc.audioEngine.playEffect(res.sound.button);
 		

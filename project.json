@@ -14,6 +14,7 @@
     "src/resource.js",
     "src/layer/app-menu-layer.js",
     "src/scene/app-menu-scene.js",
+    "src/layer/game-opening-layer.js",
     "src/layer/game-layer.js",
     "src/layer/game-background-layer.js",
     "src/layer/hub-layer.js",
@@ -23,6 +24,8 @@
     "src/role/player.js",
     "src/role/platform.js",
     "src/role/gold.js",
+    "src/role/frog.js",
+    "src/role/frog-generator.js",
     "src/role/platform-generator.js",
     "src/role/gold-generator.js",
     "src/util/statistics.js"

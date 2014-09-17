@@ -43,6 +43,7 @@ var Platform = cc.Class.extend({
  
 		this.shape = new cp.BoxShape(body, cSize.width, cSize.height );
 		this.shape.setElasticity( 0 );
+		this.shape.setCollisionType(SpriteTag.platform);
 	},
 
 	/**
@@ -60,7 +61,7 @@ var Platform = cc.Class.extend({
 	 * Called by layer cleanup.
 	 */
 	removeFromLayer: function () {
-		this.space.removeStaticShape(this.shape);
+		this.space.removeShape(this.shape);
 		this.shape = null;
 		
 		this.platform.removeFromParent();

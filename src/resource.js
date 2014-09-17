@@ -1,17 +1,11 @@
 var res = {
 	
-	// Start button.
-	startBtn: {
-		normal: 'res/start-btn-normal.png',
-		selected: 'res/start-btn-selected.png'
+	//opening
+	open: {
+		bg: 'res/open-bg.png',
+		team: 'res/maxon-team.png'
 	},
-	
-	// About button.
-	aboutBtn: {
-		normal: 'res/start-btn-normal.png',
-		selected: 'res/start-btn-selected.png' 
-	},
-	
+		
 	//menu
 	menu: {
 		bg: 'res/menu-bg.png',
@@ -57,6 +51,12 @@ var res = {
 		png: 'res/gold.png',
 	}, 
 	
+	//enemy
+	enemy: {
+		png: 'res/enemy.png',
+		plist: 'res/enemy.plist'
+	},
+	
 	//particle
 	particle: {
 		circle: 'res/circle_particle.plist',
@@ -80,7 +80,9 @@ var res = {
 		gold_mp3: 'res/sound/eat_gold.mp3',
 		game_over: 'res/sound/game_over.mp3',
 		button: 'res/sound/button.mp3',
-		opening: 'res/sound/opening.mp3'
+		menu: 'res/sound/menu.mp3',
+		opening: 'res/sound/opening.mp3',
+		enemyDied: 'res/sound/enemyDied.mp3'
 	},
 	
 	ui: {
@@ -98,7 +100,10 @@ var res = {
 
 var SpriteTag = {
 	player : 0,
-	gold : 1
+	gold : 1,
+	frog: 2,
+	platform: 3,
+	ground: 4
 	
 };
 

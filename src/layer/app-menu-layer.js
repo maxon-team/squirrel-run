@@ -18,6 +18,9 @@ var AppMenuLayer = cc.Layer.extend({
 		});
 		spritebg.setScale(0.8);
 		this.addChild(spritebg);
+		
+		var move = cc.MoveTo.create(5, cc.p(0, -30)).easing(cc.easeElasticOut());
+		spritebg.runAction(move);
 
 		cc.MenuItemFont.setFontSize(60);
 		
@@ -121,19 +124,20 @@ var AppMenuLayer = cc.Layer.extend({
 		));
 		this.runningAction.retain();
 		this.sprite = new cc.Sprite("#panda_run_01.png");
-		this.sprite.setPosition(cc.p(-100,50));
+		this.sprite.setPosition(cc.p(-100,30));
+		this.spriteSheet.setPosition(cc.p(-100,30));
 		this.spriteSheet.addChild(this.sprite);
 		this.addChild(this.spriteSheet,0);
 		this.sprite.runAction(this.runningAction);
 		
-		var moveTo = cc.MoveTo.create(10, cc.p(winsize.width+200, 50));
+		var moveTo = cc.MoveTo.create(10, cc.p(winsize.width+200, 30));
 		var seq = cc.Sequence.create(moveTo, cc.CallFunc(function(panda){
 			panda.setPositionX(-100);
 		},this.sprite));
 		
 		this.spriteSheet.runAction(seq.repeatForever());
 		//play opening music
-		cc.audioEngine.playMusic(res.sound.opening);
+		cc.audioEngine.playMusic(res.sound.menu);
 	},
 
 	/**

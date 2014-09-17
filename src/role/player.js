@@ -18,7 +18,7 @@ var Player = cc.Class.extend({
 	status: 'running',
 	
 	// player speed.
-	runningSpeed: 2500,
+	runningSpeed: 2500,  //2500
 	isJump: false,  //control jump particle
 	stars: null,
 	
@@ -61,8 +61,9 @@ var Player = cc.Class.extend({
 		this.body = body;
 		this.sprite.setBody(body);
 
-		var shape = new cp.BoxShape(body, contentSize.width - 14, contentSize.height);
+		var shape = new cp.BoxShape(body, contentSize.width - 14, contentSize.height-10);
 		this.shape = shape;
+		this.shape.setCollisionType(SpriteTag.player);
 		this.shape.setElasticity(0);
 
 		this.sprite.runAction(this.runningAction);
@@ -99,6 +100,12 @@ var Player = cc.Class.extend({
 		this.runningAction.release();
 		this.jumpUpAction.release();
 		this.jumpDownAction.release();
+		
+	},
+	
+	died: function() {
+		this.body.setPos(cc.p(this.sprite.getPositionX(), this.sprite.getPositionY()-80));
+		this.body.applyImpulse(cp.v(0, -2000), cp.v(0, 0));
 	},
 	
 	/**
@@ -107,6 +114,7 @@ var Player = cc.Class.extend({
 	 * @param dt delta time.
 	 */
 	update: function (dt) {
+
 		//jump effect
 		if(this.isJump)
 			this.stars.setPosition(this.sprite.getPositionX(), this.sprite.getPositionY());
