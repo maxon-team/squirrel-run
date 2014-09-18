@@ -105,13 +105,12 @@ var GameScene = cc.Scene.extend({
 		this.controlLayer = new cc.Layer();
 		this.controlLayer.addChild(this.nearBgLayer = new GameBackgroundLayer(res.background[1]), 0);
 		this.controlLayer.addChild(this.gameLayer = new GameLayer(this.space), 1);
+		
+		statistics.reset(this.gameLayer.player);
 
 		this.addChild(this.farBgLayer = new GameBackgroundLayer(res.background[0]))
 		this.addChild(this.controlLayer, 0);
 		this.addChild(new HubLayer(), 1);
-
-		cc.director.resume();
-		statistics.reset();
 		
 		//particle
 		var particle = cc.ParticleSystem(res.particle.circle);

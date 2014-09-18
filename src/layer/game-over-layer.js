@@ -17,11 +17,6 @@ var GameOverLayer = cc.LayerColor.extend({
 //		} else {
 //			text = '不错了，再接再厉。';
 //		}
-//		
-//		this.labelCoin = cc.LabelTTF.create(text, "Helvetica", 52);
-//		this.labelCoin.setColor(cc.color(255, 255, 255));//black color
-//		this.labelCoin.setPosition(cc.p(winSize.width / 2, winSize.height / 2 + 100));
-//		this.addChild(this.labelCoin);
 		
 		cc.MenuItemFont.setFontSize(30);
 		
@@ -37,6 +32,18 @@ var GameOverLayer = cc.LayerColor.extend({
 //		var actionTo1 = cc.MoveTo.create(0.7, cc.p(winSize.width/2-120, winSize.height/2-200)).easing(cc.easeBounceOut());
 		this.board.runAction(actionTo);
 //		this.menu.runAction(actionTo1);
+		
+		this.labelCoins = cc.LabelTTF.create(statistics.score, "Helvetica", 52);
+		this.labelCoins.setColor(cc.color(255, 255, 255));
+		this.labelCoins.setPosition(cc.p(winSize.width / 2 + 70, winSize.height));
+		this.labelCoins.runAction(cc.MoveTo.create(0.7, cc.p(winSize.width / 2 + 70, winSize.height/2+65)).easing(cc.easeBounceOut()));
+		this.addChild(this.labelCoins);
+		
+		this.labelLength = cc.LabelTTF.create(statistics.length, "Helvetica", 52);
+		this.labelLength.setColor(cc.color(255, 255, 255));
+		this.labelLength.setPosition(cc.p(winSize.width / 2 + 70, winSize.height));
+		this.labelLength.runAction(cc.MoveTo.create(0.7, cc.p(winSize.width / 2 + 70, winSize.height/2)).easing(cc.easeBounceOut()));
+		this.addChild(this.labelLength);
 		
 		this.restartBtn = new cc.Menu(new cc.MenuItemSprite(
 				new cc.Sprite(res.menu.startBtn),

@@ -23,7 +23,7 @@ var HubLayer = cc.Layer.extend({
 		energybar.setScale(0.8);
 		this.addChild(energybar);
 		
-		this.labelCoin = new cc.LabelTTF("Coins: " + statistics.score, "Helvetica", 50);
+		this.labelCoin = new cc.LabelTTF(statistics.score, "Helvetica", 50);
 		this.labelCoin.setColor(cc.color(255, 255, 255));//white color
 		this.labelCoin.setPosition(cc.p(130, winSize.height - 43));
 		this.labelCoin.setScale(0.4);

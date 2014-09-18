@@ -6,7 +6,12 @@ var statistics = {
 		return this.coins * 10;
 	},
 	
-	reset: function () {
+	get length() {
+		return parseInt(this.hero.sprite.getPositionX() / 100)
+	},
+	
+	reset: function (hero) {
+		this.hero = hero;
 		this.coins = 0;
 	}
 };
