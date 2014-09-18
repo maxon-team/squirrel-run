@@ -15,6 +15,8 @@ var res = {
 		storeBtnS: 'res/store-btn-s.png',
 		setBtn: 'res/set-btn.png',
 		setBtnS: 'res/set-btn-s.png',
+		startBtn: 'res/start-btn-normal.png',
+		startBtnS: 'res/start-btn-selected.png',
 		aboutBtn: 'res/about-btn.png',
 		aboutBtnS: 'res/about-btn-s.png',
 		logo: 'res/game-logo.png'

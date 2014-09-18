@@ -46,16 +46,16 @@ var AppMenuLayer = cc.Layer.extend({
 				new cc.Sprite(res.menu.playBtn), // normal state image
 				new cc.Sprite(res.menu.playBtnS), // select state image
 				this.onPlay, this));
-		playBtn.setPosition(cc.p(winsize.width-200, winsize.height+200));
+		var playBtnPosX = 200, playBtnPosY = 150;
+		playBtn.setPosition(cc.p(-200, winsize.height));
 		this.addChild(playBtn);
-		var actionTo = cc.MoveTo.create(2, cc.p(winsize.width-200, winsize.height-100)).easing(cc.easeElasticInOut(0.8));
 		var seq = cc.Sequence.create(
-				actionTo,
+				cc.MoveTo.create(2, cc.p(playBtnPosX, playBtnPosY)).easing(cc.easeElasticInOut(0.8)),
 				cc.CallFunc.create(function(playBtn){
-					var shaking = cc.MoveTo.create(1, cc.p(winsize.width-200, winsize.height-120)).easing(cc.easeIn(2.0));
-					var shakingBack = cc.MoveTo.create(1, cc.p(winsize.width-200, winsize.height-90)).easing(cc.easeOut(2.0));
+					var shaking = cc.MoveTo.create(1, cc.p(playBtnPosX, playBtnPosY)).easing(cc.easeIn(2.0));
+					var shakingBack = cc.MoveTo.create(1, cc.p(playBtnPosX, playBtnPosY-10)).easing(cc.easeOut(2.0));
 					var shakingSeq = cc.Sequence.create(shaking, shakingBack);
-					var shakingSeq = cc.Sequence.create(shaking,shakingBack);
+					var shakingSeq = cc.Sequence.create(shaking, shakingBack);
 					playBtn.runAction(shakingSeq.repeatForever());
 				},playBtn));
 		playBtn.runAction(seq);
